@@ -22,22 +22,6 @@ typedef glm::vec4 GLM__Vec4;
 
 MODULE = GLM		PACKAGE = GLM::Mat4
 
-TYPEMAP: <<HERE
-TYPEMAP
-GLM::Mat4 * 		T_OBJECT
-
-OUTPUT
-T_OBJECT
-    sv_setref_pv( $arg, CLASS, (void*)$var );
-    
-INPUT
-T_OBJECT
-    if (sv_derived_from($arg, "${Package}"))
-	$var = ($type)SvIV((SV*)SvRV( $arg ));
-    else
-	Perl_croak("${Package}::$func_name() -- $var is not a blessed SV reference");
-HERE
-
 GLM::Mat4 *
 GLM::Mat4::new(...)
 CODE:
@@ -47,12 +31,12 @@ CODE:
     }
     else if (items = 2)
     {
-	if (sv_derived_from(ST(1), "$ntype"))
+	if (sv_derived_from(ST(1), "$Package"))
 	{
 	    RETVAL = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(1))));
 	}
 	else
-	    croak("not type $ntype");
+	    croak("not type $Package");
     }
     else
 	croak("too many arguments");
@@ -62,11 +46,7 @@ OUTPUT:
 void
 GLM::Mat4::DESTROY()
 
-MODULE = GLM		PACKAGE = GLM::vec4
-
-TYPEMAP: <<HERE
-GLM::Vec4 *		T_PTROBJ
-HERE
+MODULE = GLM		PACKAGE = GLM::Vec4
 
 GLM::Vec4 *
 GLM::Vec4::new()

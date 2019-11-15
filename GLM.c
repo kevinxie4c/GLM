@@ -185,19 +185,19 @@ XS_EUPXS(XS_GLM__Mat4_new)
 	char *	CLASS = (char *)SvPV_nolen(ST(0))
 ;
 	GLM__Mat4 *	RETVAL;
-#line 44 "GLM.xs"
+#line 28 "GLM.xs"
     if (items = 1)
     {
 	RETVAL = new glm::mat4();
     }
     else if (items = 2)
     {
-	if (sv_derived_from(ST(1), "$ntype"))
+	if (sv_derived_from(ST(1), "$Package"))
 	{
 	    RETVAL = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(1))));
 	}
 	else
-	    croak("not type $ntype");
+	    croak("not type $Package");
     }
     else
 	croak("too many arguments");
@@ -222,14 +222,20 @@ XS_EUPXS(XS_GLM__Mat4_DESTROY)
     {
 	GLM__Mat4 *	THIS;
 
+    if (sv_derived_from(ST(0), "GLM::Mat4"))
+        THIS = (GLM__Mat4 *)SvIV((SV*)SvRV( ST(0) ));
+    else
+        croak("GLM::Mat4::DESTROY() -- THIS is not a blessed SV reference")
+;
+
 	delete THIS;
     }
     XSRETURN_EMPTY;
 }
 
 
-XS_EUPXS(XS_GLM__vec4_new); /* prototype to pass -Wmissing-prototypes */
-XS_EUPXS(XS_GLM__vec4_new)
+XS_EUPXS(XS_GLM__Vec4_new); /* prototype to pass -Wmissing-prototypes */
+XS_EUPXS(XS_GLM__Vec4_new)
 {
     dVAR; dXSARGS;
     if (items != 1)
@@ -238,13 +244,13 @@ XS_EUPXS(XS_GLM__vec4_new)
 	char *	CLASS = (char *)SvPV_nolen(ST(0))
 ;
 	GLM__Vec4 *	RETVAL;
-#line 74 "GLM.xs"
+#line 54 "GLM.xs"
     RETVAL = new glm::vec4();
-#line 244 "GLM.c"
+#line 250 "GLM.c"
 	{
 	    SV * RETVALSV;
 	    RETVALSV = sv_newmortal();
-	    sv_setref_pv(RETVALSV, "GLM::Vec4Ptr", (void*)RETVAL);
+    sv_setref_pv( RETVALSV, CLASS, (void*)RETVAL );
 	    ST(0) = RETVALSV;
 	}
     }
@@ -252,8 +258,8 @@ XS_EUPXS(XS_GLM__vec4_new)
 }
 
 
-XS_EUPXS(XS_GLM__vec4_x); /* prototype to pass -Wmissing-prototypes */
-XS_EUPXS(XS_GLM__vec4_x)
+XS_EUPXS(XS_GLM__Vec4_x); /* prototype to pass -Wmissing-prototypes */
+XS_EUPXS(XS_GLM__Vec4_x)
 {
     dVAR; dXSARGS;
     if (items != 1)
@@ -263,26 +269,22 @@ XS_EUPXS(XS_GLM__vec4_x)
 	float	RETVAL;
 	dXSTARG;
 
-	if (SvROK(ST(0)) && sv_derived_from(ST(0), "GLM::Vec4Ptr")) {
-	    IV tmp = SvIV((SV*)SvRV(ST(0)));
-	    THIS = INT2PTR(GLM__Vec4 *,tmp);
-	}
-	else
-	    Perl_croak_nocontext("%s: %s is not of type %s",
-			"GLM::vec4::x",
-			"THIS", "GLM::Vec4Ptr")
+    if (sv_derived_from(ST(0), "GLM::Vec4"))
+        THIS = (GLM__Vec4 *)SvIV((SV*)SvRV( ST(0) ));
+    else
+        croak("GLM::Vec4::x() -- THIS is not a blessed SV reference")
 ;
-#line 81 "GLM.xs"
+#line 61 "GLM.xs"
     RETVAL = THIS->x;
-#line 278 "GLM.c"
+#line 280 "GLM.c"
 	XSprePUSH; PUSHn((double)RETVAL);
     }
     XSRETURN(1);
 }
 
 
-XS_EUPXS(XS_GLM__vec4_DESTROY); /* prototype to pass -Wmissing-prototypes */
-XS_EUPXS(XS_GLM__vec4_DESTROY)
+XS_EUPXS(XS_GLM__Vec4_DESTROY); /* prototype to pass -Wmissing-prototypes */
+XS_EUPXS(XS_GLM__Vec4_DESTROY)
 {
     dVAR; dXSARGS;
     if (items != 1)
@@ -290,14 +292,10 @@ XS_EUPXS(XS_GLM__vec4_DESTROY)
     {
 	GLM__Vec4 *	THIS;
 
-	if (SvROK(ST(0))) {
-	    IV tmp = SvIV((SV*)SvRV(ST(0)));
-	    THIS = INT2PTR(GLM__Vec4 *,tmp);
-	}
-	else
-	    Perl_croak_nocontext("%s: %s is not a reference",
-			"GLM::vec4::DESTROY",
-			"THIS")
+    if (sv_derived_from(ST(0), "GLM::Vec4"))
+        THIS = (GLM__Vec4 *)SvIV((SV*)SvRV( ST(0) ));
+    else
+        croak("GLM::Vec4::DESTROY() -- THIS is not a blessed SV reference")
 ;
 
 	delete THIS;
@@ -309,8 +307,8 @@ XS_EUPXS(XS_GLM__vec4_DESTROY)
 /* INCLUDE:  Including 'const-xs.inc' from 'GLM.xs' */
 
 
-XS_EUPXS(XS_GLM__vec4_constant); /* prototype to pass -Wmissing-prototypes */
-XS_EUPXS(XS_GLM__vec4_constant)
+XS_EUPXS(XS_GLM__Vec4_constant); /* prototype to pass -Wmissing-prototypes */
+XS_EUPXS(XS_GLM__Vec4_constant)
 {
     dVAR; dXSARGS;
     if (items != 1)
@@ -329,7 +327,7 @@ XS_EUPXS(XS_GLM__vec4_constant)
 	/* IV		iv;	Uncomment this if you need to return IVs */
 	/* NV		nv;	Uncomment this if you need to return NVs */
 	/* const char	*pv;	Uncomment this if you need to return PVs */
-#line 333 "GLM.c"
+#line 331 "GLM.c"
 	SV *	sv = ST(0)
 ;
 	const char *	s = SvPV(sv, len);
@@ -406,7 +404,7 @@ XS_EUPXS(XS_GLM__vec4_constant)
                type, s));
           PUSHs(sv);
         }
-#line 410 "GLM.c"
+#line 408 "GLM.c"
 	PUTBACK;
 	return;
     }
@@ -445,10 +443,10 @@ XS_EXTERNAL(boot_GLM)
 
         newXS_deffile("GLM::Mat4::new", XS_GLM__Mat4_new);
         newXS_deffile("GLM::Mat4::DESTROY", XS_GLM__Mat4_DESTROY);
-        newXS_deffile("GLM::vec4::new", XS_GLM__vec4_new);
-        newXS_deffile("GLM::vec4::x", XS_GLM__vec4_x);
-        newXS_deffile("GLM::vec4::DESTROY", XS_GLM__vec4_DESTROY);
-        newXS_deffile("GLM::vec4::constant", XS_GLM__vec4_constant);
+        newXS_deffile("GLM::Vec4::new", XS_GLM__Vec4_new);
+        newXS_deffile("GLM::Vec4::x", XS_GLM__Vec4_x);
+        newXS_deffile("GLM::Vec4::DESTROY", XS_GLM__Vec4_DESTROY);
+        newXS_deffile("GLM::Vec4::constant", XS_GLM__Vec4_constant);
 #if PERL_VERSION_LE(5, 21, 5)
 #  if PERL_VERSION_GE(5, 9, 0)
     if (PL_unitcheckav)

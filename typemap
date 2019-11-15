@@ -1,0 +1,14 @@
+TYPEMAP
+GLM::Mat4 * 		T_OBJECT
+GLM::Vec4 *		T_OBJECT
+
+OUTPUT
+T_OBJECT
+    sv_setref_pv( $arg, CLASS, (void*)$var );
+    
+INPUT
+T_OBJECT
+    if (sv_derived_from($arg, \"${Package}\"))
+        $var = ($type)SvIV((SV*)SvRV( $arg ));
+    else
+        croak(\"${Package}::$func_name() -- $var is not a blessed SV reference\");

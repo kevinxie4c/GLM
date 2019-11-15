@@ -37,3 +37,7 @@ inc/
 *.o
 *.so
 *.dll
+*.un~
+*.def
+*.swp
+*~
