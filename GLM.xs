@@ -94,10 +94,18 @@ CODE:
 OUTPUT:
     RETVAL
 
+float
+GLM::Vec4::w(...)
+CODE:
+    if (items == 2)
+        THIS->w = (float)SvNV(ST(1));
+    RETVAL = THIS->w;
+OUTPUT:
+    RETVAL
+
 void
 GLM::Vec4::DESTROY()
 
 
 INCLUDE: const-xs.inc
-
 
