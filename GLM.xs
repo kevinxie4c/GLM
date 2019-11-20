@@ -182,7 +182,7 @@ OUTPUT:
     RETVAL
 
 void
-GLM::Vec4::DESTROY()
+GLM::Vec3::DESTROY()
 
 MODULE = GLM		PACKAGE = GLM::Functions
 
