@@ -8,11 +8,26 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
-BEGIN { use_ok('GLM') };
+use Test::More tests => 9;
+BEGIN { use_ok('GLM') }; 
 
 #########################
 
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
+my $v = new GLM::Vec3(1, 2, 3);
+ok($v->x == 1 && $v->y == 2 && $v->z == 3, "GLM::Vec3::new");
+my $v1 = new GLM::Vec3(3);
+ok($v1->x == 3 && $v1->y == 3 && $v1->z == 3, "GLM::Vec3::new");
+my $v2 = new GLM::Vec3($v);
+ok($v2->x == 1 && $v2->y == 2 && $v2->z == 3, "GLM::Vec3::new");
+my $w = new GLM::Vec4(1, 2, 3, 4);
+ok($w->x == 1 && $w->y == 2 && $w->z == 3 && $w->w == 4,, "GLM::Vec4::new");
+my $w1 = new GLM::Vec4(4);
+ok($w1->x == 4 && $w1->y == 4 && $w1->z == 4 && $w1->w == 4, "GLM::Vec4::new");
+my $w2 = new GLM::Vec4($w);
+ok($w2->x == 1 && $w2->y == 2 && $w2->z == 3 && $w2->w == 4, "GLM::Vec4::new");
+
+ok($v->to_string eq '[1 2 3]', "GLM::Vec3::to_string");
+ok($w->to_string eq '[1 2 3 4]', "GLM::Vec4::to_string");

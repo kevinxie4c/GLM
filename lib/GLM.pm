@@ -7,6 +7,8 @@ use Carp;
 
 require Exporter;
 use AutoLoader;
+use GLM::Vec3Ptr;
+use GLM::Vec4Ptr;
 
 our @ISA = qw(Exporter);
 
