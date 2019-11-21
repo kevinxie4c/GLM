@@ -58,6 +58,13 @@ CODE:
 OUTPUT:
     RETVAL
 
+void * 
+GLM::Mat4::pointer()
+CODE:
+    RETVAL = &(*THIS)[0][0];
+OUTPUT:
+    RETVAL
+
 void
 GLM::Mat4::DESTROY()
 
@@ -124,6 +131,107 @@ CODE:
 OUTPUT:
     RETVAL
 
+void * 
+GLM::Vec4::pointer()
+CODE:
+    RETVAL = &(*THIS)[0];
+OUTPUT:
+    RETVAL
+
+### auto generated methods for <GLM::Vec4>
+GLM::Vec4 *
+GLM::Vec4::add(...)
+PREINIT:
+    glm::vec4 *other_v;
+    float other_s;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    if (sv_derived_from(ST(1), "GLM::Vec4Ptr"))
+    {
+        other_v = (glm::vec4 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec4(*THIS + *other_v);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec4(*THIS + other_s);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::minus(...)
+PREINIT:
+    glm::vec4 *other_v;
+    float other_s;
+    int swap;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    swap = 0;
+    if (items == 3)
+        swap = SvTRUE(ST(2));
+    if (sv_derived_from(ST(1), "GLM::Vec4Ptr"))
+    {
+        other_v = (glm::vec4 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec4(!swap ? *THIS - *other_v : *other_v - *THIS);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec4(!swap ? *THIS - other_s : other_s - *THIS);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::mul(...)
+PREINIT:
+    glm::vec4 *other_v;
+    float other_s;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    if (sv_derived_from(ST(1), "GLM::Vec4Ptr"))
+    {
+        other_v = (glm::vec4 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec4(*THIS * *other_v);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec4(*THIS * other_s);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::div(...)
+PREINIT:
+    glm::vec4 *other_v;
+    float other_s;
+    int swap;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    swap = 0;
+    if (items == 3)
+        swap = SvTRUE(ST(2));
+    if (sv_derived_from(ST(1), "GLM::Vec4Ptr"))
+    {
+        other_v = (glm::vec4 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec4(!swap ? *THIS / *other_v : *other_v / *THIS);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec4(!swap ? *THIS / other_s : other_s / *THIS);
+    }
+OUTPUT:
+    RETVAL
+### auto generation end
+
 void
 GLM::Vec4::DESTROY()
 
@@ -180,6 +288,107 @@ CODE:
     RETVAL = THIS->z;
 OUTPUT:
     RETVAL
+
+void * 
+GLM::Vec3::pointer()
+CODE:
+    RETVAL = &(*THIS)[0];
+OUTPUT:
+    RETVAL
+
+### auto generated methods for <GLM::Vec3>
+GLM::Vec3 *
+GLM::Vec3::add(...)
+PREINIT:
+    glm::vec3 *other_v;
+    float other_s;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+    {
+        other_v = (glm::vec3 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec3(*THIS + *other_v);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec3(*THIS + other_s);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::minus(...)
+PREINIT:
+    glm::vec3 *other_v;
+    float other_s;
+    int swap;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    swap = 0;
+    if (items == 3)
+        swap = SvTRUE(ST(2));
+    if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+    {
+        other_v = (glm::vec3 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec3(!swap ? *THIS - *other_v : *other_v - *THIS);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec3(!swap ? *THIS - other_s : other_s - *THIS);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::mul(...)
+PREINIT:
+    glm::vec3 *other_v;
+    float other_s;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+    {
+        other_v = (glm::vec3 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec3(*THIS * *other_v);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec3(*THIS * other_s);
+    }
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::div(...)
+PREINIT:
+    glm::vec3 *other_v;
+    float other_s;
+    int swap;
+CODE:
+    if (items < 2 || items > 3)
+        croak_xs_usage(cv, "THIS, other, ...");
+    swap = 0;
+    if (items == 3)
+        swap = SvTRUE(ST(2));
+    if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+    {
+        other_v = (glm::vec3 *)SvIV((SV*)SvRV(ST(1)));
+        RETVAL = new glm::vec3(!swap ? *THIS / *other_v : *other_v / *THIS);
+    }
+    else
+    {
+        other_s = (float)SvNV(ST(1));
+        RETVAL = new glm::vec3(!swap ? *THIS / other_s : other_s / *THIS);
+    }
+OUTPUT:
+    RETVAL
+### auto generation end
 
 void
 GLM::Vec3::DESTROY()
