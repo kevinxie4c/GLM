@@ -44,17 +44,25 @@ OUTPUT:
 MODULE = GLM		PACKAGE = GLM::Mat4Ptr
 
 float 
-GLM::Mat4::at(...)
+GLM::Mat4::ele(int i, int j, ...)
 CODE:
-    if (items == 3)
-        RETVAL = (*THIS)[(int)SvIV(ST(1))][(int)SvIV(ST(2))];
-    else if (items == 4)
-    {
-        (*THIS)[(int)SvIV(ST(1))][(int)SvIV(ST(2))] = (float)SvNV(ST(3));
-        RETVAL = (*THIS)[(int)SvIV(ST(1))][(int)SvIV(ST(2))];
-    }
-    else
+    if (items < 3 || items > 4)
         croak("expect 2 or 3 arguments but receiving %d", items);
+    else if (items == 4)
+        (*THIS)[i][j] = (float)SvNV(ST(3));
+    RETVAL = (*THIS)[i][j];
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 * 
+GLM::Mat4::vec(int i, ...)
+CODE:
+    if (items < 2 || items > 3)
+        croak("expect 1 or 2 arguments but receiving %d", items);
+    else if (items == 3)
+        (*THIS)[i] = *(INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(1)))));
+    glm::vec4 v = (*THIS)[i];
+    RETVAL = new glm::vec4(v);
 OUTPUT:
     RETVAL
 

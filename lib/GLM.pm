@@ -9,6 +9,7 @@ require Exporter;
 use AutoLoader;
 use GLM::Vec3Ptr;
 use GLM::Vec4Ptr;
+use GLM::Mat4Ptr;
 
 our @ISA = qw(Exporter);
 
