@@ -7,10 +7,10 @@ open my $fin, '<GLM.tp.xs';
 open my $fout, '>GLM.xs';
 while (<$fin>) {
     print $fout $_;
-    if (/### auto generated methods for <(.*)>/) {
+    if (/### auto generated vec methods for <(.*)>/) {
         my $type = $1;
         my $true_type = lc $type;
-        print $fout <<"CODE";
+        print $fout <<"AUTOCODE";
 $type *
 ${type}::add(...)
 PREINIT:
@@ -102,7 +102,43 @@ CODE:
     }
 OUTPUT:
     RETVAL
+
+$type *
+${type}::normalized()
+CODE:
+    RETVAL = new $true_type(*THIS);
+OUTPUT:
+    RETVAL
+
+$type *
+${type}::normalize()
+CODE:
+    *THIS = glm::normalize(*THIS);
+    RETVAL = new $true_type(*THIS);
+OUTPUT:
+    RETVAL
+
+float
+${type}::length()
+CODE:
+    RETVAL = glm::length(*THIS);
+OUTPUT:
+    RETVAL
+
+$type *
+${type}::dot($type *other, ...)
+CODE:
+    RETVAL = new $true_type(glm::dot(*THIS, *other));
+OUTPUT:
+    RETVAL
+
+$type *
+${type}::distance($type *other, ...)
+CODE:
+    RETVAL = new $true_type(glm::distance(*THIS, *other));
+OUTPUT:
+    RETVAL
 ### auto generation end
-CODE
+AUTOCODE
     }
 }

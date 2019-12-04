@@ -60,14 +60,19 @@ CODE:
     if (items < 2 || items > 3)
         croak("expect 1 or 2 arguments but receiving %d", items);
     else if (items == 3)
-        (*THIS)[i] = *(INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(1)))));
+    {
+        if (sv_derived_from(ST(2), "GLM::Vec4Ptr"))
+            (*THIS)[i] = *(INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(2)))));
+        else
+            croak_xs_usage(cv, "THIS, i, [vec]");
+    }
     glm::vec4 v = (*THIS)[i];
     RETVAL = new glm::vec4(v);
 OUTPUT:
     RETVAL
 
 SV *
-GLM::Mat4::Mul(SV *other, ...)
+GLM::Mat4::mul(SV *other, ...)
 PREINIT:
     glm::mat4 *other_m;
     glm::vec4 *other_v;
@@ -177,7 +182,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-### auto generated methods for <GLM::Vec4>
+### auto generated vec methods for <GLM::Vec4>
 GLM::Vec4 *
 GLM::Vec4::add(...)
 PREINIT:
@@ -269,6 +274,42 @@ CODE:
     }
 OUTPUT:
     RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::normalized()
+CODE:
+    RETVAL = new glm::vec4(*THIS);
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::normalize()
+CODE:
+    *THIS = glm::normalize(*THIS);
+    RETVAL = new glm::vec4(*THIS);
+OUTPUT:
+    RETVAL
+
+float
+GLM::Vec4::length()
+CODE:
+    RETVAL = glm::length(*THIS);
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::dot(GLM::Vec4 *other, ...)
+CODE:
+    RETVAL = new glm::vec4(glm::dot(*THIS, *other));
+OUTPUT:
+    RETVAL
+
+GLM::Vec4 *
+GLM::Vec4::distance(GLM::Vec4 *other, ...)
+CODE:
+    RETVAL = new glm::vec4(glm::distance(*THIS, *other));
+OUTPUT:
+    RETVAL
 ### auto generation end
 
 void
@@ -335,7 +376,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-### auto generated methods for <GLM::Vec3>
+### auto generated vec methods for <GLM::Vec3>
 GLM::Vec3 *
 GLM::Vec3::add(...)
 PREINIT:
@@ -427,7 +468,50 @@ CODE:
     }
 OUTPUT:
     RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::normalized()
+CODE:
+    RETVAL = new glm::vec3(*THIS);
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::normalize()
+CODE:
+    *THIS = glm::normalize(*THIS);
+    RETVAL = new glm::vec3(*THIS);
+OUTPUT:
+    RETVAL
+
+float
+GLM::Vec3::length()
+CODE:
+    RETVAL = glm::length(*THIS);
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::dot(GLM::Vec3 *other, ...)
+CODE:
+    RETVAL = new glm::vec3(glm::dot(*THIS, *other));
+OUTPUT:
+    RETVAL
+
+GLM::Vec3 *
+GLM::Vec3::distance(GLM::Vec3 *other, ...)
+CODE:
+    RETVAL = new glm::vec3(glm::distance(*THIS, *other));
+OUTPUT:
+    RETVAL
 ### auto generation end
+
+GLM::Vec3 *
+GLM::Vec3::cross(GLM::Vec3 *other, ...)
+CODE:
+    RETVAL = new glm::vec3(glm::cross(*THIS, *other));
+OUTPUT:
+    RETVAL
 
 void
 GLM::Vec3::DESTROY()
