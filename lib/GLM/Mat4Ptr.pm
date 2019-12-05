@@ -2,12 +2,12 @@ package GLM::Mat4Ptr;
 
 use strict;
 use warnings;
-#use overload
+use overload
 #    '+' => \&add,
 #    '-' => \&minus,
-#    '*' => \&mul,
+    '*' => \&mul,
 #    '/' => \&div,
-#    ;
+    ;
 
 sub to_string {
     my $this = shift;

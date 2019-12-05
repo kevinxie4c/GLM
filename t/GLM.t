@@ -8,7 +8,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test::More tests => 18;
 BEGIN { use_ok('GLM') }; 
 
 #########################
@@ -39,3 +39,12 @@ ok(($v - 1)->to_string eq '[0 1 2]', "GLM::Vec3::sub");
 ok((3 - $v)->to_string eq '[2 1 0]', "GLM::Vec3::sub");
 ok((2 * $v)->to_string eq '[2 4 6]', "GLM::Vec3::mul");
 ok(($v1 / 3)->to_string eq '[1 1 1]', "GLM::Vec3::div");
+
+my $m = GLM::Mat4->new(
+    1, 0, 0, 0,
+    0, 2, 0, 0,
+    0, 0, 3, 0,
+    0, 0, 0, 4
+);
+ok(($m * $w)->to_string eq '[1 4 9 16]', "GLM::Mat4::mul");
+ok(($m * $m)->to_string eq '[[1 0 0 0] [0 4 0 0] [0 0 9 0] [0 0 0 16]]', "GLM::Mat4::mul");
