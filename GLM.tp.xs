@@ -292,6 +292,26 @@ CODE:
 OUTPUT:
     RETVAL
 
+GLM::Mat4 *
+rotate(GLM::Mat4 *m, float angle, GLM::Vec3 *v)
+CODE:
+    RETVAL = new glm::mat4(glm::rotate(*m, angle, *v));
+OUTPUT:
+    RETVAL
+
+GLM::Mat4 *
+scale(GLM::Mat4 *m, GLM::Vec3 *v)
+CODE:
+    RETVAL = new glm::mat4(glm::scale(*m, *v));
+OUTPUT:
+    RETVAL
+
+GLM::Mat4 *
+translate(GLM::Mat4 *m, GLM::Vec3 *v)
+CODE:
+    RETVAL = new glm::mat4(glm::translate(*m, *v));
+OUTPUT:
+    RETVAL
 
 INCLUDE: const-xs.inc
 
