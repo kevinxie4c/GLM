@@ -34,10 +34,19 @@ CODE:
         if (sv_derived_from(ST(1), "GLM::Mat4Ptr"))
             RETVAL = new glm::mat4(*INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(1)))));
         else
-            croak("not type GLM::Mat4");
+            RETVAL = new glm::mat4((float)SvNV(ST(1)));
     }
+    else if (items == 5)
+    {
+        if (sv_derived_from(ST(1), "GLM::Vec4Ptr") && sv_derived_from(ST(2), "GLM::Vec4Ptr") && sv_derived_from(ST(3), "GLM::Vec4Ptr") && sv_derived_from(ST(4), "GLM::Vec4Ptr"))
+            RETVAL = new glm::mat4(*INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(1)))), *INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(2)))), *INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(3)))), *INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(4)))));
+        else
+            croak("invalid arguments");
+    }
+    else if (items == 17)
+        RETVAL = new glm::mat4((float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4)), (float)SvNV(ST(5)), (float)SvNV(ST(6)), (float)SvNV(ST(7)), (float)SvNV(ST(8)), (float)SvNV(ST(9)), (float)SvNV(ST(10)), (float)SvNV(ST(11)), (float)SvNV(ST(12)), (float)SvNV(ST(13)), (float)SvNV(ST(14)), (float)SvNV(ST(15)), (float)SvNV(ST(16))); 
     else
-        croak("too many arguments");
+        croak("invalid arguments");
 OUTPUT:
     RETVAL
 
@@ -62,7 +71,7 @@ CODE:
     else if (items == 3)
     {
         if (sv_derived_from(ST(2), "GLM::Vec4Ptr"))
-            (*THIS)[i] = *(INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(2)))));
+            (*THIS)[i] = *INT2PTR(glm::vec4 *, SvIV((SV*)SvRV(ST(2))));
         else
             croak_xs_usage(cv, "THIS, i, [vec]");
     }
