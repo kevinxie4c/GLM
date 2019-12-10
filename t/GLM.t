@@ -8,7 +8,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 21;
+use Test::More tests => 23;
 BEGIN { use_ok('GLM') }; 
 
 #########################
@@ -52,3 +52,8 @@ ok(($m * $m)->to_string eq '[[1 0 0 0] [0 4 0 0] [0 0 9 0] [0 0 0 16]]', "GLM::M
 ok("$v" eq '[1 2 3]', "GLM::Vec3 stringify operator");
 ok("$w" eq '[1 2 3 4]', "GLM::Vec4 stringify operator");
 ok("$m" eq '[[1 0 0 0] [0 2 0 0] [0 0 3 0] [0 0 0 4]]', "GLM::Mat4 stringify operator");
+
+ok($v->dot($v1) == 18, "GLM::Vec3::dot");
+my $e1 = GLM::Vec3->new(1, 0, 0);
+my $e2 = GLM::Vec3->new(0, 1, 0);
+ok($e1->cross($e2)->to_string eq '[0 0 1]', "GLM::Vec3::cross");

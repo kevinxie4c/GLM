@@ -306,10 +306,10 @@ CODE:
 OUTPUT:
     RETVAL
 
-GLM::Vec4 *
+float
 GLM::Vec4::dot(GLM::Vec4 *other, ...)
 CODE:
-    RETVAL = new glm::vec4(glm::dot(*THIS, *other));
+    RETVAL = glm::dot(*THIS, *other);
 OUTPUT:
     RETVAL
 
@@ -500,10 +500,10 @@ CODE:
 OUTPUT:
     RETVAL
 
-GLM::Vec3 *
+float
 GLM::Vec3::dot(GLM::Vec3 *other, ...)
 CODE:
-    RETVAL = new glm::vec3(glm::dot(*THIS, *other));
+    RETVAL = glm::dot(*THIS, *other);
 OUTPUT:
     RETVAL
 

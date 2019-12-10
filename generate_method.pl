@@ -125,10 +125,10 @@ CODE:
 OUTPUT:
     RETVAL
 
-$type *
+float
 ${type}::dot($type *other, ...)
 CODE:
-    RETVAL = new $true_type(glm::dot(*THIS, *other));
+    RETVAL = glm::dot(*THIS, *other);
 OUTPUT:
     RETVAL
 
