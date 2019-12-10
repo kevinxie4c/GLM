@@ -7,6 +7,7 @@ use overload
     '-' => \&minus,
     '*' => \&mul,
     '/' => \&div,
+    '""' => \&to_string,
     ;
 
 sub to_string {
