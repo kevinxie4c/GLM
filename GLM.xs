@@ -549,6 +549,13 @@ OUTPUT:
     RETVAL
 
 GLM::Mat4 *
+ortho(float left, float right, float bottom, float top, float n, float f)
+CODE:
+    RETVAL = new glm::mat4(glm::ortho(left, right, bottom, top, n, f));
+OUTPUT:
+    RETVAL
+
+GLM::Mat4 *
 rotate(GLM::Mat4 *m, float angle, GLM::Vec3 *v)
 CODE:
     RETVAL = new glm::mat4(glm::rotate(*m, angle, *v));
