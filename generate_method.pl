@@ -106,7 +106,7 @@ OUTPUT:
 $type *
 ${type}::normalized()
 CODE:
-    RETVAL = new $true_type(*THIS);
+    RETVAL = new $true_type(glm::normalize(*THIS));
 OUTPUT:
     RETVAL
 

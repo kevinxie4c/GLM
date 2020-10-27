@@ -287,7 +287,7 @@ OUTPUT:
 GLM::Vec4 *
 GLM::Vec4::normalized()
 CODE:
-    RETVAL = new glm::vec4(*THIS);
+    RETVAL = new glm::vec4(glm::normalize(*THIS));
 OUTPUT:
     RETVAL
 
@@ -481,7 +481,7 @@ OUTPUT:
 GLM::Vec3 *
 GLM::Vec3::normalized()
 CODE:
-    RETVAL = new glm::vec3(*THIS);
+    RETVAL = new glm::vec3(glm::normalize(*THIS));
 OUTPUT:
     RETVAL
 
