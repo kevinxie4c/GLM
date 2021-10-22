@@ -1,5 +1,5 @@
-#include "src/glm.hpp"
-#include "src/gtc/matrix_transform.hpp"
+#include "glm-0.9.9.8/glm/glm.hpp"
+#include "glm-0.9.9.8/glm/gtx/transform.hpp"
 
 #define isnan isnan
 
