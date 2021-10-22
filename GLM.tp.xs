@@ -81,6 +81,54 @@ OUTPUT:
     RETVAL
 
 SV *
+GLM::Mat4::add(SV *other, ...)
+PREINIT:
+    glm::mat4 *other_m;
+    //glm::vec4 *other_v;
+    //float other_s;
+    glm::mat4 *ret_m;
+    //glm::vec4 *ret_v;
+    //float ret_s;
+CODE:
+    if (sv_derived_from(other, "GLM::Mat4Ptr"))
+    {
+        other_m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(other)));
+        ret_m = new glm::mat4(*THIS + *other_m);
+        RETVAL = newSV(0);
+        sv_setref_pv(RETVAL, "GLM::Mat4Ptr", (void*)ret_m);
+    }
+    else
+    {
+        croak("other is neither a GLM::Mat4Ptr nor a GLM::Vec4Ptr");
+    }
+OUTPUT:
+    RETVAL
+
+SV *
+GLM::Mat4::minus(SV *other, ...)
+PREINIT:
+    glm::mat4 *other_m;
+    //glm::vec4 *other_v;
+    //float other_s;
+    glm::mat4 *ret_m;
+    //glm::vec4 *ret_v;
+    //float ret_s;
+CODE:
+    if (sv_derived_from(other, "GLM::Mat4Ptr"))
+    {
+        other_m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(other)));
+        ret_m = new glm::mat4(*THIS - *other_m);
+        RETVAL = newSV(0);
+        sv_setref_pv(RETVAL, "GLM::Mat4Ptr", (void*)ret_m);
+    }
+    else
+    {
+        croak("other is neither a GLM::Mat4Ptr nor a GLM::Vec4Ptr");
+    }
+OUTPUT:
+    RETVAL
+
+SV *
 GLM::Mat4::mul(SV *other, ...)
 PREINIT:
     glm::mat4 *other_m;

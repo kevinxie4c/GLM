@@ -3,8 +3,8 @@ package GLM::Mat4Ptr;
 use strict;
 use warnings;
 use overload
-#    '+' => \&add,
-#    '-' => \&minus,
+    '+' => \&add,
+    '-' => \&minus,
     '*' => \&mul,
 #    '/' => \&div,
     '""' => \&to_string,
