@@ -604,9 +604,43 @@ OUTPUT:
     RETVAL
 
 GLM::Mat4 *
-rotate(GLM::Mat4 *m, float angle, GLM::Vec3 *v)
+rotate(...)
+PREINIT:
+    glm::mat4 *m;
+    glm::vec3 *v;
 CODE:
-    RETVAL = new glm::mat4(glm::rotate(*m, angle, *v));
+    if (items == 2)
+    {
+	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+	else
+	    croak("GLM::Functions::rotate(angle, v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::rotate((float)SvNV(ST(0)), *v));
+    }
+    else if (items = 3)
+    {
+	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+	else
+	    croak("GLM::Functions::rotate(m, angle, v) -- m is not a GLM::Mat4 instance");
+	if (sv_derived_from(ST(2), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(2))));
+	else
+	    croak("GLM::Functions::rotate(m, angle, v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::rotate(*m, (float)SvNV(ST(1)), *v));
+    }
+    //else if (items = 4)
+    //    RETVAL = new glm::mat4(glm::rotate((float)SvNV(ST(0)), (float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3))));
+    //else if (items = 5)
+    //{
+    //    if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+    //        m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+    //    else
+    //        croak("GLM::Functions::rotate(m, angle, x, y, z) -- m is not a GLM::Mat4 instance");
+    //    RETVAL = new glm::mat4(glm::rotate(*m, (float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4))));
+    //}
+    else
+	croak("GLM::Functions::rotate -- invalid number of arguments");
 OUTPUT:
     RETVAL
 
