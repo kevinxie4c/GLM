@@ -187,6 +187,13 @@ CODE:
             croak("not type GLM::Vec4Ptr");
         */
     }
+    else if (items == 3)
+    {
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            RETVAL = new glm::vec4(*INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1)))), (float)SvNV(ST(2)));
+	else
+	    croak("GLM::Vec4::new(v, f) -- v is not a GLM::Vec3 instance");
+    }
     else if (items == 5)
         RETVAL = new glm::vec4((float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4)));
     else
@@ -389,16 +396,60 @@ OUTPUT:
     RETVAL
 
 GLM::Mat4 *
-scale(GLM::Mat4 *m, GLM::Vec3 *v)
+scale(...)
+PREINIT:
+    glm::mat4 *m;
+    glm::vec3 *v;
 CODE:
-    RETVAL = new glm::mat4(glm::scale(*m, *v));
+    if (items == 1)
+    {
+	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
+	else
+	    croak("GLM::Functions::scale(v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::scale(*v));
+    }
+    else if (items = 2)
+    {
+	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+	else
+	    croak("GLM::Functions::scale(m, v) -- m is not a GLM::Mat4 instance");
+	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+	else
+	    croak("GLM::Functions::scale(m, v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::scale(*m, *v));
+    }
 OUTPUT:
     RETVAL
 
 GLM::Mat4 *
-translate(GLM::Mat4 *m, GLM::Vec3 *v)
+translate(...)
+PREINIT:
+    glm::mat4 *m;
+    glm::vec3 *v;
 CODE:
-    RETVAL = new glm::mat4(glm::translate(*m, *v));
+    if (items == 1)
+    {
+	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
+	else
+	    croak("GLM::Functions::translate(v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::translate(*v));
+    }
+    else if (items = 2)
+    {
+	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+	else
+	    croak("GLM::Functions::translate(m, v) -- m is not a GLM::Mat4 instance");
+	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+	else
+	    croak("GLM::Functions::translate(m, v) -- v is not a GLM::Vec3 instance");
+	RETVAL = new glm::mat4(glm::translate(*m, *v));
+    }
 OUTPUT:
     RETVAL
 
