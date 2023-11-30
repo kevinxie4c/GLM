@@ -44,7 +44,7 @@ CODE:
             croak("invalid arguments");
     }
     else if (items == 17)
-        RETVAL = new glm::mat4((float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4)), (float)SvNV(ST(5)), (float)SvNV(ST(6)), (float)SvNV(ST(7)), (float)SvNV(ST(8)), (float)SvNV(ST(9)), (float)SvNV(ST(10)), (float)SvNV(ST(11)), (float)SvNV(ST(12)), (float)SvNV(ST(13)), (float)SvNV(ST(14)), (float)SvNV(ST(15)), (float)SvNV(ST(16))); 
+        RETVAL = new glm::mat4((float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4)), (float)SvNV(ST(5)), (float)SvNV(ST(6)), (float)SvNV(ST(7)), (float)SvNV(ST(8)), (float)SvNV(ST(9)), (float)SvNV(ST(10)), (float)SvNV(ST(11)), (float)SvNV(ST(12)), (float)SvNV(ST(13)), (float)SvNV(ST(14)), (float)SvNV(ST(15)), (float)SvNV(ST(16)));
     else
         croak("invalid arguments");
 OUTPUT:
@@ -52,7 +52,7 @@ OUTPUT:
 
 MODULE = GLM		PACKAGE = GLM::Mat4Ptr
 
-float 
+float
 GLM::Mat4::ele(int i, int j, ...)
 CODE:
     if (items < 3 || items > 4)
@@ -63,7 +63,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-GLM::Vec4 * 
+GLM::Vec4 *
 GLM::Mat4::vec(int i, ...)
 CODE:
     if (items < 2 || items > 3)
@@ -159,7 +159,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-void * 
+void *
 GLM::Mat4::pointer()
 CODE:
     RETVAL = &(*THIS)[0][0];
@@ -191,8 +191,8 @@ CODE:
     {
         if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
             RETVAL = new glm::vec4(*INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1)))), (float)SvNV(ST(2)));
-	else
-	    croak("GLM::Vec4::new(v, f) -- v is not a GLM::Vec3 instance");
+        else
+            croak("GLM::Vec4::new(v, f) -- v is not a GLM::Vec3 instance");
     }
     else if (items == 5)
         RETVAL = new glm::vec4((float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4)));
@@ -239,7 +239,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-void * 
+void *
 GLM::Vec4::pointer()
 CODE:
     RETVAL = &(*THIS)[0];
@@ -433,7 +433,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-void * 
+void *
 GLM::Vec3::pointer()
 CODE:
     RETVAL = &(*THIS)[0];
@@ -618,23 +618,23 @@ PREINIT:
 CODE:
     if (items == 2)
     {
-	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
-	else
-	    croak("GLM::Functions::rotate(angle, v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::rotate((float)SvNV(ST(0)), *v));
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+        else
+            croak("GLM::Functions::rotate(angle, v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::rotate((float)SvNV(ST(0)), *v));
     }
     else if (items == 3)
     {
-	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
-	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
-	else
-	    croak("GLM::Functions::rotate(m, angle, v) -- m is not a GLM::Mat4 instance");
-	if (sv_derived_from(ST(2), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(2))));
-	else
-	    croak("GLM::Functions::rotate(m, angle, v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::rotate(*m, (float)SvNV(ST(1)), *v));
+        if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+            m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+        else
+            croak("GLM::Functions::rotate(m, angle, v) -- m is not a GLM::Mat4 instance");
+        if (sv_derived_from(ST(2), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(2))));
+        else
+            croak("GLM::Functions::rotate(m, angle, v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::rotate(*m, (float)SvNV(ST(1)), *v));
     }
     //else if (items == 4)
     //    RETVAL = new glm::mat4(glm::rotate((float)SvNV(ST(0)), (float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3))));
@@ -647,7 +647,7 @@ CODE:
     //    RETVAL = new glm::mat4(glm::rotate(*m, (float)SvNV(ST(1)), (float)SvNV(ST(2)), (float)SvNV(ST(3)), (float)SvNV(ST(4))));
     //}
     else
-	croak("GLM::Functions::rotate -- invalid number of arguments");
+        croak("GLM::Functions::rotate -- invalid number of arguments");
 OUTPUT:
     RETVAL
 
@@ -659,23 +659,23 @@ PREINIT:
 CODE:
     if (items == 1)
     {
-	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
-	else
-	    croak("GLM::Functions::scale(v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::scale(*v));
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
+        else
+            croak("GLM::Functions::scale(v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::scale(*v));
     }
     else if (items == 2)
     {
-	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
-	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
-	else
-	    croak("GLM::Functions::scale(m, v) -- m is not a GLM::Mat4 instance");
-	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
-	else
-	    croak("GLM::Functions::scale(m, v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::scale(*m, *v));
+        if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+            m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+        else
+            croak("GLM::Functions::scale(m, v) -- m is not a GLM::Mat4 instance");
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+        else
+            croak("GLM::Functions::scale(m, v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::scale(*m, *v));
     }
 OUTPUT:
     RETVAL
@@ -688,23 +688,23 @@ PREINIT:
 CODE:
     if (items == 1)
     {
-	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
-	else
-	    croak("GLM::Functions::translate(v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::translate(*v));
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(0))));
+        else
+            croak("GLM::Functions::translate(v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::translate(*v));
     }
     else if (items == 2)
     {
-	if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
-	    m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
-	else
-	    croak("GLM::Functions::translate(m, v) -- m is not a GLM::Mat4 instance");
-	if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
-	    v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
-	else
-	    croak("GLM::Functions::translate(m, v) -- v is not a GLM::Vec3 instance");
-	RETVAL = new glm::mat4(glm::translate(*m, *v));
+        if (sv_derived_from(ST(0), "GLM::Mat4Ptr"))
+            m = INT2PTR(glm::mat4 *, SvIV((SV*)SvRV(ST(0))));
+        else
+            croak("GLM::Functions::translate(m, v) -- m is not a GLM::Mat4 instance");
+        if (sv_derived_from(ST(1), "GLM::Vec3Ptr"))
+            v = INT2PTR(glm::vec3 *, SvIV((SV*)SvRV(ST(1))));
+        else
+            croak("GLM::Functions::translate(m, v) -- v is not a GLM::Vec3 instance");
+        RETVAL = new glm::mat4(glm::translate(*m, *v));
     }
 OUTPUT:
     RETVAL
