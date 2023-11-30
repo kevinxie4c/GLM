@@ -42,3 +42,4 @@ inc/
 *.swp
 *~
 GLM.c
+const-c.inc
